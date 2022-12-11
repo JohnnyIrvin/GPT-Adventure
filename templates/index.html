@@ -16,6 +16,19 @@
                     ws.send(input.value);
                     input.value = "";
                 });
+
+                document.getElementById("messages").addEventListener("click", function(event) {
+                    if (event.target.tagName === "LI") {
+                        event.target.style.opacity = 0.5;
+                    }
+                });
+
+                document.addEventListener("keydown", function(event) {
+                    if (event.keyCode === 13 && document.activeElement === document.getElementById("message")) {
+                        document.getElementById("send").click();
+                    }
+                });
+
             });
         </script>
     </head>
