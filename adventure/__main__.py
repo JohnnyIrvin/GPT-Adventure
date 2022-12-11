@@ -51,9 +51,12 @@ credentials = {
 def get_index(request: Request, response: Response):
     return templates.TemplateResponse("index.html", {"request": request, "response": response})
 
-def broadcast(message: str):
+async def broadcast(message: str):
     for client in clients.values():
-        client.send_text(message)
+        try:
+            await client.send_text(message)
+        except Exception:
+            pass
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
@@ -92,10 +95,10 @@ async def websocket_endpoint(websocket: WebSocket):
     while True:
         message = await websocket.receive_text()
         messages.append(message)
-        broadcast(f"{message}")
+        await broadcast(f"{message}")
         response = chatbot.get_chat_response(message)['message']
         messages.append(response)
-        broadcast(f"{response}")
+        await broadcast(f"{response}")
 
 if __name__ == "__main__":
     run(app, host="0.0.0.0", port=8000)
