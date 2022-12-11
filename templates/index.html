@@ -1,7 +1,6 @@
 <html>
     <head>
         <script>
-            // On page load, create a websocket and listen for messages
             document.addEventListener("DOMContentLoaded", function() {
                 var ws = new WebSocket("ws://" + window.location.host + "/chat");
                 ws.onmessage = function(event) {
@@ -11,7 +10,6 @@
                     messages.appendChild(message);
                 };
 
-                // Listen for clicks on the send button and send the message to the server
                 document.getElementById("send").addEventListener("click", function() {
                     var input = document.getElementById("message");
                     ws.send(input.value);
