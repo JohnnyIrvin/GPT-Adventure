@@ -3,8 +3,7 @@
         <script>
             // On page load, create a websocket and listen for messages
             document.addEventListener("DOMContentLoaded", function() {
-                var ws = new WebSocket("");
-
+                var ws = new WebSocket("ws://" + window.location.host + "/chat");
                 ws.onmessage = function(event) {
                     var messages = document.getElementById("messages");
                     var message = document.createElement("li");
