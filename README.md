@@ -34,6 +34,7 @@ $ docker run -p 8000:8000 gpt-adventure
 
 You will need to provide a session token, cf_clearance, user_agent and a list of usernames and passwords to a filenamed config.json located at the root of the repository. The config.json file should have the following format:
 
+```json
 {
   "session_token": "your-session-token-here",
   "cf_clearance": "cloudflare-clearance-token",
@@ -44,6 +45,7 @@ You will need to provide a session token, cf_clearance, user_agent and a list of
     ...
   ]
 }
+```
 
 The session_token field should be a string is generated from ChatGPT, see instructions from [revChatGPT](https://github.com/acheong08/ChatGPT/wiki/Setup#access-token-authentication). This token is used to authenticate with ChatGPT.
 
