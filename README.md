@@ -30,6 +30,23 @@ If you would like to customize the port that the game runs on, you can specify i
 $ docker run -p 8000:8000 gpt-adventure
 ```
 
+## Configuration
+
+You will need to provide a session token and a list of usernames and passwords to a filenamed config.json located at the root of the repository. The config.json file should have the following format:
+
+{
+  "session_token": "your-session-token-here",
+  "users": [
+    {"username": "user1", "password": "pass1"},
+    {"username": "user2", "password": "pass2"},
+    ...
+  ]
+}
+
+The session_token field should be a string is generated from ChatGPT, see instructions from [revChatGPT](https://github.com/acheong08/ChatGPT/wiki/Setup#access-token-authentication). This token is used to authenticate with ChatGPT.
+
+The users field should be a list of objects, each with a username and password field. These will be used to create user accounts for the game.
+
 ## Contributing
 We welcome contributions to GPT Adventure! If you have an idea for a new feature or have found a bug, please open an issue on the [GitHub Repository](https://github.com/JohnnyIrvin/GPT-Adventure)
 
