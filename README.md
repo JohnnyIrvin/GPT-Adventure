@@ -1,7 +1,3 @@
-# WARNING
-
-Due to ChatGPT protecting its API with Cloudflare, this project is no longer functional. When the API becomes publically available, work on this project will continue!
-
 # GPT Adventure
 
 A web-based dungeon roleplaying game programmed in Python using the FastAPI framework.
@@ -36,10 +32,12 @@ $ docker run -p 8000:8000 gpt-adventure
 
 ## Configuration
 
-You will need to provide a session token and a list of usernames and passwords to a filenamed config.json located at the root of the repository. The config.json file should have the following format:
+You will need to provide a session token, cf_clearance, user_agent and a list of usernames and passwords to a filenamed config.json located at the root of the repository. The config.json file should have the following format:
 
 {
   "session_token": "your-session-token-here",
+  "cf_clearance": "cloudflare-clearance-token",
+  "user_agent": "your-user-agent-here",
   "users": [
     {"username": "user1", "password": "pass1"},
     {"username": "user2", "password": "pass2"},
