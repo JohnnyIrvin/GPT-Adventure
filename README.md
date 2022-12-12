@@ -1,3 +1,7 @@
+# WARNING
+
+Due to ChatGPT protecting its API with Cloudflare, this project is no longer functional. When the API becomes publically available, work on this project will continue!
+
 # GPT Adventure
 
 A web-based dungeon roleplaying game programmed in Python using the FastAPI framework.
