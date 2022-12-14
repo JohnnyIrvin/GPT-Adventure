@@ -5,20 +5,42 @@
             document.addEventListener("DOMContentLoaded", function() {
                 var ws = new WebSocket("ws://" + window.location.host + "/ws");
                 ws.onmessage = function(event) {
-                    var messages = document.getElementById("messages");
-                    var message = document.createElement("li");
+                    let messages = document.getElementById("messages");
+                    let card = document.createElement("div");
+                    let body = document.createElement("div");
+                    let message = document.createElement("p");
+                    
+                    card.classList.add("card");
+                    card.classList.add("mb-3");
+                    card.classList.add("text-center");
+                    body.classList.add("card-body");
+                    message.classList.add("card-text");
+
                     message.innerHTML = event.data;
-                    messages.appendChild(message);
+
+                    messages.appendChild(card);
+                    card.appendChild(body);
+                    body.appendChild(message);
+
+                    messages.scrollTop = messages.scrollHeight;
+
+                    var oldMessages = document.querySelectorAll("#messages div.card");
+                    if (oldMessages.length > 5) {
+                        for (var i = 0; i < oldMessages.length - 5; i++) {
+                            oldMessages[i].style.opacity = 0.5;
+                        }
+                    }
                 };
 
                 document.getElementById("send").addEventListener("click", function() {
                     var input = document.getElementById("message");
                     ws.send(input.value);
                     input.value = "";
+                    event.preventDefault();
                 });
 
                 document.getElementById("messages").addEventListener("click", function(event) {
-                    if (event.target.tagName === "LI") {
+                    if (event.target.tagName === "DIV" && event.target.classList.contains("card")) {
                         event.target.style.opacity = 0.5;
                     }
                 });
@@ -26,20 +48,27 @@
                 document.addEventListener("keydown", function(event) {
                     if (event.keyCode === 13 && document.activeElement === document.getElementById("message")) {
                         document.getElementById("send").click();
+                        event.preventDefault();
                     }
                 });
+
+                ws.onclose = function() {
+                    alert("Disconnected. Attempting to reconnect...");
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                };
 
             });
         </script>
     </head>
     <body>
-        <div class="container">
+        <div id="app" class="container">
             <div class="row">
                 <div class="col">
                     <h1>Chat</h1>
-                    <ul id="messages"></ul>
+                    <div id="messages" class="mb-3"></div>
                     <div class="mb-3">
-                        <label for="message" class="form-label">Message</label>
                         <textarea class="form-control" rows="3" id="message"></textarea>
                     </div>
                     <div class="mb-3">
@@ -48,5 +77,17 @@
                 </div>
             </div>
         </div>
+
+        <script type="module">
+        import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!'
+                }
+            }
+        }).mount('#app')
+        </script>
     </body>
 </html>
